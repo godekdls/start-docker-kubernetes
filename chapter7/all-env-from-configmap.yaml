@@ -10,6 +10,10 @@ spec:
       envFrom:
       - configMapRef:
           name: log-level-configmap
-      - configMapKeyRef:
-          name: start-k8s
-          key: k8s
+      env:
+      - name: ENV_KEYNAME_2
+        valueFrom: 
+          configMapKeyRef:
+            name: start-k8s 
+            key: k8s 
+                                 
