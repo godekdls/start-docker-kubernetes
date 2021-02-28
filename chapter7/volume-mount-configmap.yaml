@@ -15,3 +15,9 @@ spec:
     - name: configmap-volume            # 컨피그맵 볼륨 이름
       configMap:
         name: start-k8s
+    - name: configmap-volume2            # 컨피그맵 볼륨 이름
+      configMap:
+        name: start-k8s2
+        items:
+        - key: k8s
+          path: k8s_fullname
