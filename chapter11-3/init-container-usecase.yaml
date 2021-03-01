@@ -3,10 +3,33 @@ kind: Pod
 metadata:
   name: init-container-usecase
 spec:
-  containers:
-  - name: nginx
-    image: nginx
   initContainers:
   - name: wait-other-service
     image: busybox
     command: ['sh', '-c', 'until nslookup myservice; do echo waiting..; sleep 1; done;']
+  terminationGracePeriodSeconds: 30
+  containers:
+  - name: nginx
+    image: nginx
+    lifecycle:
+      postStart:
+        exec:
+          command: ["sh", "-c", "touch /mylife"]
+      preStop:
+        exec:
+          command: ["/usr/bin/nginx", "-s", "quit"]
+    livenessProbe:
+      httpGet:
+        port: 80
+        path: /
+    readinessProbe:
+      httpGet:
+        port: 80
+        path: /hi
+      periodSeconds: 5
+      initialDelaySeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+      
+      
