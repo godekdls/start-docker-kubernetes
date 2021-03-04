@@ -7,6 +7,6 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: hostname-deployment
-  targetCPUUtilizationPercentage: 50
   maxReplicas: 5
   minReplicas: 1
+  targetCPUUtilizationPercentage: 50
